@@ -27,8 +27,8 @@ ADD         https://tarballs.openstack.org/python-openstackclient/python-opensta
 
 RUN         rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
 
-RUN         --mount=type=cache,target=/var/cache/apt,sharing=private \
-            --mount=type=cache,target=/var/lib/apt,sharing=private \
+RUN         --mount=type=cache,target=/var/cache/apt \
+            --mount=type=cache,target=/var/lib/apt \
             apt-get update -q \
         &&  apt-get install -yq --no-install-recommends \
                 liberasurecode-dev \
@@ -78,8 +78,8 @@ ENV         DEBIAN_FRONTEND=noninteractive
 
 RUN         rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
 
-RUN         --mount=type=cache,target=/var/cache/apt,sharing=private \
-            --mount=type=cache,target=/var/lib/apt,sharing=private \
+RUN         --mount=type=cache,target=/var/cache/apt \
+            --mount=type=cache,target=/var/lib/apt \
             apt-get update -q \
         &&  apt-get install -yq --no-install-recommends \
                 xz-utils \
