@@ -12,12 +12,14 @@ This image was created as a combination of other existing approaches, none of wh
 - [jeantil/openstack-swift-keystone-docker](https://github.com/jeantil/openstack-swift-keystone-docker)
 
 ## Stack
+
 This container is based on `python:3.9-slim` and installs tarballs from
 [OpenStack release Wallaby](https://docs.openstack.org/wallaby/install/).
 Furthermore, the image includes [s6-overlay](https://github.com/just-containers/s6-overlay)
 to manage processes.
 
 ## How to use this container
+
 Build the image with
 
     docker buildx build -t keystone-swift .
@@ -46,20 +48,26 @@ The following commands are available in the container:
 - bash
 
 ## Extras
+
 Use the scripts to generate data into the object storage, and test the endpoints.
 
 ## Preconfigured credentials
+
 The container comes with 2 preconfigured accounts:
 - admin / superuser
 - swift / veryfast
 
 ## Preconfigured projects
+
 The container comes with 2 preconfigured projects:
 - service (Service test project) | swift admin user
 - swift-project (Swift test project) | swift admin user
 
 ### Keystone Identity v3 accounts 
+
 Default endpoint http://127.0.0.1:5000/v3
+
+For authentication, see [Sample curl commands](#sample-curl-commands)
 
 #### Administrative account
 
@@ -97,26 +105,37 @@ Default endpoint http://127.0.0.1:8080/auth/v1.0
     PASSWORD=testing
     TENANT_NAME=test
 
-
-## Sample httpie commands
-
-Keystone Identity v3
-
-    echo '{"auth":{"identity":{"methods":["password"],"password":{"user":{"name":"swift","domain":{"name":"Default"},"password":"veryfast"}}},"scope":{"project":{"domain":{"id":"default"},"name":"test"}}}}' | http POST :5000/v3/auth/tokens
-
-TempAuth
-
-    http http://127.0.0.1:8080/auth/v1.0 X-Storage-User:test:tester X-Storage-Pass:testing 
-
 ## Sample curl commands
 
-Keystone Identity v3
+### Keystone Identity v3
 
     curl -X POST -H 'Content-Type: application/json' -d '{"auth":{"identity":{"methods":["password"],"password":{"user":{"name":"swift","domain":{"name":"Default"},"password":"veryfast"}}},"scope":{"project":{"domain":{"id":"default"},"name":"test"}}}}' http://127.0.0.1:5000/v3/auth/tokens
 
-TempAuth
+### TempAuth
 
     curl -H 'X-Storage-User: test:tester' -H 'X-Storage-Pass: testing' http://127.0.0.1:8080/auth/v1.0
+
+## Sample httpie commands
+
+### Keystone Identity v3
+
+    echo '{"auth":{"identity":{"methods":["password"],"password":{"user":{"name":"swift","domain":{"name":"Default"},"password":"veryfast"}}},"scope":{"project":{"domain":{"id":"default"},"name":"test"}}}}' | http POST :5000/v3/auth/tokens
+
+### TempAuth
+
+    http http://127.0.0.1:8080/auth/v1.0 X-Storage-User:test:tester X-Storage-Pass:testing 
+
+## Swift API usage examples
+
+See [keystone-swift.http](/scripts/keystone-swift.http)
+
+# Docker hub
+
+[tomadele/swift-keystone](https://hub.docker.com/repository/docker/tomadele/swift-keystone/general)
+
+# Contribution
+
+Forked from [CSCfi/docker-keystone-swift](https://github.com/CSCfi/docker-keystone-swift)
 
 # License
 

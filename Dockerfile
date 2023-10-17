@@ -116,10 +116,10 @@ COPY        --from=builder /usr/local/include /usr/local/include
 COPY        --from=builder /usr/local/lib /usr/local/lib
 
 # Prepare
-RUN         useradd -U swift \ 
-        &&  useradd -U keystone \ 
-        &&  useradd -U syslog \ 
-        &&  useradd -U sysllog \ 
+RUN         useradd -U swift \
+        &&  useradd -U keystone \
+        &&  useradd -U syslog \
+        &&  useradd -U sysllog \
         &&  mkdir -p "/etc/swift" "/srv/node" "/srv/node/sdb1" "/var/cache/swift" "/var/run/swift" "/usr/local/src/" \
         &&  mkdir -p "/etc/keystone" "/var/lib/keystone" "/etc/keystone/fernet-keys/" \
 # Build swift rings
