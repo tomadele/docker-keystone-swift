@@ -60,8 +60,8 @@ The container comes with 2 preconfigured accounts:
 ## Preconfigured projects
 
 The container comes with 2 preconfigured projects:
-- service (Service test project) | swift admin user
-- swift-project (Swift test project) | swift admin user
+- service (Service test project)
+- swift (Swift test project)
 
 ### Keystone Identity v3 accounts 
 
